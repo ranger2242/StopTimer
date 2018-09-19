@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="StopTimer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/StopTimer_jar</output-path>
+    <root id="archive" name="StopTimer.jar">
+      <element id="module-output" name="StopTimer" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/miglayout/miglayout-core/4.2/miglayout-core-4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/miglayout/miglayout-swing/4.2/miglayout-swing-4.2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: com.miglayout:miglayout-core:4.2" />
+      <element id="library" level="project" name="Maven: com.miglayout:miglayout-swing:4.2" />
+    </root>
+  </artifact>
+</component>
