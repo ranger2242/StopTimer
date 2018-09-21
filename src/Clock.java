@@ -1,48 +1,67 @@
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Chris Cavazos on 7/17/2016.
  */
-public class Clock {
-    NumberFormat f = new DecimalFormat("00");
-    protected long start=0;
-    protected long end=0;
-    protected String name="";
-    public Clock(String n){
-        name=n;
+class Clock {
+    private static Timer timer;
+    private static float interval;
+    private final NumberFormat f = new DecimalFormat("00");
+
+    private long start = 0;
+    private long end = 0;
+
+    Clock() {
     }
 
-    public Clock() {
-
+    static float getInterval() {
+        NumberFormat f2 = new DecimalFormat("#0.00");
+        float a=Float.parseFloat(f2.format(interval));
+        interval-=(.1f);
+        return a;
     }
 
-    public void start(){
-        start=System.nanoTime();
-    }
-    public void end(){
-        end=System.nanoTime();
-    }
-    public String getElapsed(){
-        return f.format(getElapsedD());
-    }
-    public double getElapsedD(){
-        return (end-start)/( 1000000000.0);
+    static void stop() {
+        timer.cancel();
     }
 
 
-    public String runtime(){
-        int s= (int) (getElapsedD()%60);
-        int m= (int) ((getElapsedD()/60)%60);
-        int h= (int) ((getElapsedD()/3600));
-
-        return h+":"+f.format(m)+":"+f.format(s);
+    void start() {
+        start = System.nanoTime();
     }
 
-    public void print() {
-        System.out.println(runtime());
+    void end() {
+        end = System.nanoTime();
     }
-    public void printS() {
-        System.out.println(getElapsed());
+
+    private int getElapsed() {
+        return (int) ((end - start) / (1000000000.0));
+    }
+
+
+    String runtime() {
+        int t=getElapsed();
+        int s = t% 60;
+        int m = (t/ 60) % 60;
+        int h = (t/ 3600);
+
+        return h + ":" + f.format(m) + ":" + f.format(s);
+    }
+
+    void reset() {
+        interval = 10;
+        if (timer != null)
+            timer.cancel();
+        timer = new Timer();
+    }
+
+    void setUpdateCycle(TimerTask task) {
+        int delay = 100;
+        int period = 100;
+        timer.scheduleAtFixedRate(task, delay, period);
+
     }
 }
