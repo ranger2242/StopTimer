@@ -52,7 +52,7 @@ class Clock {
     }
 
     void reset() {
-        interval = 10;
+        interval = 300;
         if (timer != null)
             timer.cancel();
         timer = new Timer();
